@@ -17,10 +17,6 @@ const defaulthStore: AuthStore = {
     //     login: 'ryslan',
     //     password: 'ryslan',
     //     tell: 89101242618,
-    //     contacns: [
-    //         { id: 2, login: 'egor', tell: 89433542332 },
-    //         { id: 3, login: 'vova', tell: 89545124311 },
-    //     ],
     // },
 };
 

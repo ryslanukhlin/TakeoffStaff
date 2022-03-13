@@ -4,18 +4,11 @@ export type AuthStore = {
     error: boolean;
 };
 
-type frend = {
-    id: number;
-    login: string;
-    tell: number;
-};
-
 export type User = {
     id: number;
     login: string;
     password: string;
     tell: number;
-    contacns: frend[];
 };
 
 export enum AuthActionEnum {
