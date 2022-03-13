@@ -12,6 +12,7 @@ export type frend = {
 export enum ContactActionEnum {
     DOWNLOAD_CONTACT = 'DOWNLOAD_CONTACT',
     ADD_CONTACT = 'ADD_CONTACT',
+    CHANGE_CONTACT = 'CHANGE_CONTACT',
 }
 
 export type DownloadContact = {
@@ -24,4 +25,13 @@ export type AddContact = {
     payload: frend;
 };
 
-export type ContactAction = DownloadContact | AddContact;
+export type ChangeContact = {
+    type: ContactActionEnum.CHANGE_CONTACT;
+    payload: {
+        tell: number;
+        name: string;
+        id: number;
+    };
+};
+
+export type ContactAction = DownloadContact | AddContact | ChangeContact;
