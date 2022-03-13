@@ -4,30 +4,33 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import useInput from '../hooks/useInput';
 import { useTypeDispatch } from '../hooks/useTypeDispatch';
+import InputMask from 'react-input-mask';
 
 const FrendItem: FC<{ frend: frend }> = ({ frend }) => {
     const [edit, setEdit] = useState(false);
-    const [tell, setTell] = useInput(String(frend.tell));
-    const [login, setLogin] = useInput(frend.login);
+    const [tell, setTell, setDefaultTell] = useInput(frend.tell);
+    const [login, setLogin, setDefaultLogin] = useInput(frend.login);
 
-    const editContact = () => {
-        setEdit(true);
-    };
-
+    const editContact = () => setEdit(true);
     const closeEditContact = () => {
+        setDefaultTell();
+        setDefaultLogin();
         setEdit(false);
     };
-
     const isChangeContact =
-        (String(frend.tell) === tell && frend.login === login) || tell === '' || login === '';
+        (String(frend.tell) === tell && frend.login === login) ||
+        tell === '' ||
+        login === '' ||
+        tell.replace(/_/g, '').length !== 18;
 
-    const { changeContactRequest } = useTypeDispatch();
+    const { changeContactRequest, deleteContactRequest } = useTypeDispatch();
+
     const changeContact = () => {
         closeEditContact();
-        changeContactRequest(login, +tell, frend.id);
+        changeContactRequest(login, tell, frend.id);
     };
 
     return (
@@ -36,12 +39,9 @@ const FrendItem: FC<{ frend: frend }> = ({ frend }) => {
                 <CardHeader
                     title={
                         edit ? (
-                            <TextField
-                                sx={{ mb: '10px' }}
-                                label="Телефон"
-                                value={tell}
-                                onChange={setTell}
-                            />
+                            <InputMask mask="+7 (999) 999 99-99" value={tell} onChange={setTell}>
+                                {() => <TextField sx={{ mb: '10px' }} label="Телефон" />}
+                            </InputMask>
                         ) : (
                             frend.tell
                         )
@@ -71,7 +71,9 @@ const FrendItem: FC<{ frend: frend }> = ({ frend }) => {
                                 <IconButton onClick={editContact} size="large">
                                     <EditIcon />
                                 </IconButton>
-                                <IconButton size="large">
+                                <IconButton
+                                    onClick={deleteContactRequest.bind(null, frend.id)}
+                                    size="large">
                                     <DeleteIcon />
                                 </IconButton>
                             </>

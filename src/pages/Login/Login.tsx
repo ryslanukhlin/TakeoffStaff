@@ -1,6 +1,7 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { Alert, Button, TextField, Typography } from '@mui/material';
 import useInput from '../../hooks/useInput';
 import { useTypeDispatch } from '../../hooks/useTypeDispatch';
+import { useTypedSelector } from '../../hooks/useTypeSelector';
 import './Login.scss';
 
 const Login = () => {
@@ -13,11 +14,18 @@ const Login = () => {
         userRequset(login, password);
     };
 
+    const error = useTypedSelector((state) => state.authReducer.error);
+
     return (
         <div className="form">
             <Typography variant="h2" gutterBottom>
                 Вход в Контакты
             </Typography>
+            {error && (
+                <Alert sx={{ mb: '30px' }} severity="error">
+                    Неправильный логин или пароль
+                </Alert>
+            )}
             <TextField
                 value={login}
                 onChange={setLogin}

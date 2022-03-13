@@ -16,6 +16,7 @@
         "@types/react-dom": "^17.0.13",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-input-mask": "^2.0.4",
         "react-redux": "^7.2.6",
         "react-router-dom": "^6.2.2",
         "react-scripts": "5.0.0",
@@ -50,6 +51,7 @@
         ]
     },
     "devDependencies": {
+        "@types/react-input-mask": "^3.0.1",
         "@types/react-redux": "^7.1.23",
         "@types/redux": "^3.6.0"
     }

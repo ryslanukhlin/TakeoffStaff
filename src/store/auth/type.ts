@@ -8,7 +8,7 @@ export type User = {
     id: number;
     login: string;
     password: string;
-    tell: number;
+    tell: string;
 };
 
 export enum AuthActionEnum {

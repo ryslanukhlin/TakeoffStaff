@@ -4,15 +4,13 @@ import {
     ContactAction,
     ContactActionEnum,
     ContactState,
+    DeleteContact,
     DownloadContact,
     frend,
 } from './type';
 
 const defaultState: ContactState = {
-    frends: [
-        { id: 2, userId: 1, login: 'egor', tell: 89433542332 },
-        { id: 3, userId: 1, login: 'vova', tell: 89545124311 },
-    ],
+    frends: [],
 };
 
 export const contactReducer = (
@@ -33,6 +31,8 @@ export const contactReducer = (
                     } else return item;
                 }),
             };
+        case ContactActionEnum.DELETE_CONTACT:
+            return { frends: state.frends.filter((frend) => frend.id !== action.payload) };
         default:
             return state;
     }
@@ -50,9 +50,14 @@ export const addContact = (frend: frend): AddContact => ({
 
 export const changeContact = (payload: {
     name: string;
-    tell: number;
+    tell: string;
     id: number;
 }): ChangeContact => ({
     type: ContactActionEnum.CHANGE_CONTACT,
     payload,
+});
+
+export const deleteContact = (id: number): DeleteContact => ({
+    type: ContactActionEnum.DELETE_CONTACT,
+    payload: id,
 });

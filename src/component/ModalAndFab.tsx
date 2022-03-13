@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import useInput from '../hooks/useInput';
 import { useTypedSelector } from '../hooks/useTypeSelector';
 import { useTypeDispatch } from '../hooks/useTypeDispatch';
+import InputMask from 'react-input-mask';
 
 const ModalAndFab = () => {
     const [modal, setModal] = useState(false);
@@ -20,6 +21,8 @@ const ModalAndFab = () => {
     const onClickAddConcacn = () => {
         addContactRequest(name, tell, myId!);
     };
+
+    const isValid = name.split('').length === 0 || tell.replace(/_/g, '').length !== 18;
 
     return (
         <>
@@ -40,16 +43,13 @@ const ModalAndFab = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                value={tell}
-                                onChange={setTell}
-                                fullWidth
-                                label="Телефон"
-                                variant="outlined"
-                            />
+                            <InputMask mask="+7 (999) 999 99-99" value={tell} onChange={setTell}>
+                                {() => <TextField fullWidth label="Телефон" variant="outlined" />}
+                            </InputMask>
                         </Grid>
                         <Grid item xs={12}>
                             <Button
+                                disabled={isValid}
                                 onClick={onClickAddConcacn}
                                 size="large"
                                 fullWidth

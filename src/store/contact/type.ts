@@ -6,13 +6,14 @@ export type frend = {
     id: number;
     userId: number;
     login: string;
-    tell: number;
+    tell: string;
 };
 
 export enum ContactActionEnum {
     DOWNLOAD_CONTACT = 'DOWNLOAD_CONTACT',
     ADD_CONTACT = 'ADD_CONTACT',
     CHANGE_CONTACT = 'CHANGE_CONTACT',
+    DELETE_CONTACT = 'DELETE_CONTACT',
 }
 
 export type DownloadContact = {
@@ -28,10 +29,15 @@ export type AddContact = {
 export type ChangeContact = {
     type: ContactActionEnum.CHANGE_CONTACT;
     payload: {
-        tell: number;
+        tell: string;
         name: string;
         id: number;
     };
 };
 
-export type ContactAction = DownloadContact | AddContact | ChangeContact;
+export type DeleteContact = {
+    type: ContactActionEnum.DELETE_CONTACT;
+    payload: number;
+};
+
+export type ContactAction = DownloadContact | AddContact | ChangeContact | DeleteContact;

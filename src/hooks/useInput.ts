@@ -1,6 +1,10 @@
 import { useCallback, useState } from 'react';
 
-type useInputHoock<T> = [T, (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void];
+type useInputHoock<T> = [
+    T,
+    (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void,
+    () => void,
+];
 
 const useInput = (initialInput: string = ''): useInputHoock<string> => {
     const [input, setInput] = useState(initialInput);
@@ -9,7 +13,9 @@ const useInput = (initialInput: string = ''): useInputHoock<string> => {
         setInput(e.target.value);
     }, []);
 
-    return [input, onChange];
+    const setDefaultValue = useCallback(() => setInput(initialInput), []);
+
+    return [input, onChange, setDefaultValue];
 };
 
 export default useInput;

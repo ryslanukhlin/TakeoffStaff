@@ -8,3 +8,19 @@
     bottom: 20px;
     right: 20px;
 }
+
+.search__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    padding: 0 20px;
+}
+
+.search {
+    max-width: 580px;
+}
+
+.hr {
+    margin-bottom: 40px !important;
+}

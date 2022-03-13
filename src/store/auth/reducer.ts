@@ -12,12 +12,6 @@ import {
 const defaulthStore: AuthStore = {
     download: false,
     error: false,
-    user: {
-        id: 1,
-        login: 'ryslan',
-        password: 'ryslan',
-        tell: 89101242618,
-    },
 };
 
 export const authReducer = (store: AuthStore = defaulthStore, action: AuthAction): AuthStore => {
